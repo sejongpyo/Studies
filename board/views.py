@@ -4,7 +4,6 @@ from django.shortcuts import redirect
 from datetime import datetime
 import requests
 
-
 def home(request):
     return render(request, "home.html")
 
@@ -27,12 +26,16 @@ def board_insert(request):
     bnote = request.POST['b_note']
     bwriter = request.POST['b_writer']
     bdate = datetime.now()
-    if btitle != "":
+    rsBoard =  Board.objects.all()
+
+    if btitle != "" and bnote != "" and bwriter != "":
         rows = Board.objects.create(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
         return redirect('/board')
-    else:
-        return redirect('/board_write')
-
+    '''
+    elif btitle == "" or bnote == "" or bwriter == "":
+        return render(request, "board_list.html", {
+        'rsBoard': rsBoard})
+'''
 
 def board_view(request):
     bno = request.GET['b_no']
@@ -79,3 +82,4 @@ def board_update(request):
 
     except ObjectDoesNotExist:
         return Response({"success": False, "msg": "게시글 없음."})
+
