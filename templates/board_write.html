@@ -53,8 +53,8 @@
                         </tr>
                         <tr style="height:45px;border-top:solid 1px #dddddd;" align="center">
                             <td width="100%" colspan="2">
-                                <button type="button" class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"
-                                        onclick="write2()">저장
+                                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"
+                                        >저장
                                 </button>
                                 <a href="/board" class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"
                                     >목록
@@ -72,8 +72,8 @@
 </main><!-- End #main -->
 
 <script>
-    function write2(){
-        alert("okay")
+    if("{{message}}" != ""){
+        alert("{{message}}");
     }
 </script>
 {% endblock %}

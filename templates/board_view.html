@@ -41,6 +41,8 @@
                 <p class="text-center">내용이 없습니다! </p>
                 {% endif %}
 
+                {% rsDetail %}
+                {% endblock %}
                 {% for i in rsDetail %}
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr style="height:45px;border-top:solid 1px #dddddd;">
@@ -58,7 +60,7 @@
                     <tr style="height:60px;border-top:solid 1px #dddddd;" align="center">
                         <td width="100%" colspan="2">
                             <a href="/board_edit?b_no={{ i.b_no }}" class="btn btn-outline-success">수정</a>
-                            <button class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"
+                            <button type="button" class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"
                                     onclick="location.href='/board'">목록
                             </button>
                         </td>

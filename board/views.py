@@ -1,8 +1,11 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 from django.shortcuts import render
 from board.models import Board
 from django.shortcuts import redirect
 from datetime import datetime
 import requests
+import js2py
 
 def home(request):
     return render(request, "home.html")
@@ -10,7 +13,6 @@ def home(request):
 
 def board(request):
     rsBoard = Board.objects.all()
-
     return render(request, "board_list.html", {
         'rsBoard': rsBoard})
 
@@ -18,6 +20,7 @@ def board(request):
 # 유저가 처음으로 보는 페이지이고 from, import를 작성해야 함수 추가가능 -> urls.py로 이동
 
 def board_write(request):
+
     return render(request, "board_write.html", )
 
 
@@ -26,16 +29,19 @@ def board_insert(request):
     bnote = request.POST['b_note']
     bwriter = request.POST['b_writer']
     bdate = datetime.now()
-    rsBoard =  Board.objects.all()
+    rsBoard = Board.objects.all()
 
     if btitle != "" and bnote != "" and bwriter != "":
         rows = Board.objects.create(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
         return redirect('/board')
-    '''
+
     elif btitle == "" or bnote == "" or bwriter == "":
-        return render(request, "board_list.html", {
-        'rsBoard': rsBoard})
-'''
+        msg = '메시지 입력해주세요'
+
+        return render(request, "board_write.html", {'message' : msg})
+        '''alal = alert("메시지를 입력해주세요")
+        testFunction = js2py.eval_js(alert)'''
+
 
 def board_view(request):
     bno = request.GET['b_no']
@@ -73,13 +79,13 @@ def board_update(request):
             board.b_note = bnote
         if bwriter != "":
             board.b_writer = bwriter
-
+        return render(request, "board_edit.html", {'msg': "에러입니다"})
         try:
             board.save()
             return redirect('/board')
         except ValueError:
-            return Response({"success": False, "msg": "에러입니다."})
+            return requests.Response({"success": False, "msg": "에러입니다."})
 
     except ObjectDoesNotExist:
-        return Response({"success": False, "msg": "게시글 없음."})
+        return requests.Response({"success": False, "msg": "게시글 없음."})
 
