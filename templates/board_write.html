@@ -35,7 +35,7 @@
             <div class="section-title" data-aos="fade-up">
                 <h3>게시판 등록</h3>
 
-                <form action="/board_insert" method="post" id="frmBoard">{% csrf_token %}
+                <form action="/board_insert" method="post" name="frmBoard" onsubmit="return validateForm()">{% csrf_token %}
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr style="height:45px;border-top:solid 1px #dddddd;">
                             <td width="20%" align="center">제목</td>
@@ -72,6 +72,15 @@
 </main><!-- End #main -->
 
 <script>
+    function validateForm(){
+        var b_title = document.forms["frmBoard"]["b_title"].value;
+        var b_writer = document.forms["frmBoard"]["b_writer"].value;
+        var b_note = document.forms["frmBoard"]["b_note"].value;
+        if (b_title == "" || b_writer == "" || b_note == ""){
+        alert("Title, Writer, note must be filled!");
+        return false;
+        }
+    }
     if("{{message}}" != ""){
         alert("{{message}}");
     }

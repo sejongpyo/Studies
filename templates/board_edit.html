@@ -40,7 +40,8 @@
 
                 <div style="margin:20px 0;">
 
-                    <form action="/board_update" method="post" id="frmBoard">{% csrf_token %}
+                    <form action="/board_update" method="post" name="frmBoard" onsubmit="return validateForm()">{%
+                        csrf_token %}
                         {% for i in rsDetail %}
                         <input type="hidden" name="b_no" value="{{ i.b_no }}">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -83,10 +84,20 @@
 </main><!-- End #main -->
 
 <script>
+    function validateForm(){
+        var b_title = document.forms["frmBoard"]["b_title"].value;
+        var b_writer = document.forms["frmBoard"]["b_writer"].value;
+        var b_note = document.forms["frmBoard"]["b_note"].value;
+        if (b_title == "" || b_writer == "" || b_note == ""){
+        alert("Title, Writer, note must be filled!");
+        return false;
+        }
+    }
     if("{{message}}" != ""){
         alert("{{message}}");
         location.href="/board_edit?b_no={{bno}}";
     }
+
 </script>
 
 
