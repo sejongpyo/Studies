@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block scripts %}
+
 {{ block.super }}
-<script src="{% static 'js/home.js' %}"></script>
+
 {% endblock %}
 
 {% block body %}
@@ -36,9 +37,7 @@
                 <div style="margin:20px 0;text-align:center;">
                     <h3>게시판 수정</h3>
                 </div>
-                {% if not rsDetail %}
-                <p class="text-center">내용이 없습니다! {%{{ msg }}%} </p>
-                {% endif %}
+
                 <div style="margin:20px 0;">
 
                     <form action="/board_update" method="post" id="frmBoard">{% csrf_token %}
@@ -63,11 +62,12 @@
                             <tr style="height:60px;border-top:solid 1px #dddddd;" align="center">
                                 <td width="100%" colspan="2">
                                     <button class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"
-                                            onclick="javascript:document.getElementById('frmBoard').submit();">저장
+                                    >저장
                                     </button>
-                                    <button class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"
-                                            onclick="location.href='/board'">목록
-                                    </button>
+                                    <a href="/board" class="btn btn-outline-success my-2 my-sm-0"
+                                       style="margin-right:10px;"
+                                    >목록
+                                    </a>
                                 </td>
                             </tr>
                         </table>
@@ -81,6 +81,13 @@
     </section><!-- End Services Section -->
 
 </main><!-- End #main -->
+
+<script>
+    if("{{message}}" != ""){
+        alert("{{message}}");
+        location.href="/board_edit?b_no={{bno}}";
+    }
+</script>
 
 
 {% endblock %}

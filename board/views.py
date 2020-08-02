@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from datetime import datetime
 import requests
 import js2py
+msg = '제목, 작성자, 내용을 입력해주세요.'
 
 def home(request):
     return render(request, "home.html")
@@ -20,7 +21,6 @@ def board(request):
 # 유저가 처음으로 보는 페이지이고 from, import를 작성해야 함수 추가가능 -> urls.py로 이동
 
 def board_write(request):
-
     return render(request, "board_write.html", )
 
 
@@ -29,18 +29,14 @@ def board_insert(request):
     bnote = request.POST['b_note']
     bwriter = request.POST['b_writer']
     bdate = datetime.now()
-    rsBoard = Board.objects.all()
 
     if btitle != "" and bnote != "" and bwriter != "":
         rows = Board.objects.create(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
         return redirect('/board')
 
     elif btitle == "" or bnote == "" or bwriter == "":
-        msg = '메시지 입력해주세요'
 
-        return render(request, "board_write.html", {'message' : msg})
-        '''alal = alert("메시지를 입력해주세요")
-        testFunction = js2py.eval_js(alert)'''
+        return render(request, "board_write.html", {'message': msg})
 
 
 def board_view(request):
@@ -70,7 +66,20 @@ def board_update(request):
     btitle = request.POST['b_title']
     bnote = request.POST['b_note']
     bwriter = request.POST['b_writer']
+    bdate = datetime.now()
 
+    if btitle != "" and bnote != "" and bwriter != "":
+        rsDetail = Board.objects.filter(b_no=bno).update(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
+        return redirect('/board')
+
+    elif btitle == "" or bnote == "" or bwriter == "":
+
+        return render(request, "board_edit.html", {'message': msg, 'bno' : bno})
+
+
+
+
+'''
     try:
         board = Board.objects.get(b_no=bno)
         if btitle != "":
@@ -79,7 +88,7 @@ def board_update(request):
             board.b_note = bnote
         if bwriter != "":
             board.b_writer = bwriter
-        return render(request, "board_edit.html", {'msg': "에러입니다"})
+        return render(request, "board_edit.html", {'message': msg})
         try:
             board.save()
             return redirect('/board')
@@ -88,4 +97,4 @@ def board_update(request):
 
     except ObjectDoesNotExist:
         return requests.Response({"success": False, "msg": "게시글 없음."})
-
+'''
