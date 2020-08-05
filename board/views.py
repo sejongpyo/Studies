@@ -6,14 +6,16 @@ from django.shortcuts import redirect
 from datetime import datetime
 import requests
 import js2py
+
 msg = '제목, 작성자, 내용을 입력해주세요.'
+
 
 def home(request):
     return render(request, "home.html")
 
 
 def board(request):
-    rsBoard = Board.objects.all()
+    rsBoard = Board.objects.all().order_by('-b_no')
     return render(request, "board_list.html", {
         'rsBoard': rsBoard})
 
@@ -74,27 +76,4 @@ def board_update(request):
 
     elif btitle == "" or bnote == "" or bwriter == "":
 
-        return render(request, "board_edit.html", {'message': msg, 'bno' : bno})
-
-
-
-
-'''
-    try:
-        board = Board.objects.get(b_no=bno)
-        if btitle != "":
-            board.b_title = btitle
-        if bnote != "":
-            board.b_note = bnote
-        if bwriter != "":
-            board.b_writer = bwriter
-        return render(request, "board_edit.html", {'message': msg})
-        try:
-            board.save()
-            return redirect('/board')
-        except ValueError:
-            return requests.Response({"success": False, "msg": "에러입니다."})
-
-    except ObjectDoesNotExist:
-        return requests.Response({"success": False, "msg": "게시글 없음."})
-'''
+        return render(request, "board_edit.html", {'message': msg, 'bno': bno})

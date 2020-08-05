@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('board.urls')),
+    path('', include('accounts.urls'))
 ]
 
 # 서버에 요청이 들어오면 누가 url을 처리할지 담당할 담당자 역할을 함
