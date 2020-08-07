@@ -15,11 +15,16 @@
                     <ul>
                         <li><a href="signin">Signin</a></li>
                         <li><a href="login_form">Login</a></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="logout">Logout</a></li>
                         <li><a href="#">Search</a></li>
                     </ul>
                 </li>
+                {% if not log_complete %}
                 <li class="get-started"><a href="#about">Get Started</a></li>
+                {% endif %}
+                {% if log_complete %}
+                <li class="get-started"><a href="#about">"{{log_complete}}"</a></li>
+                {% endif %}
             </ul>
         </nav>
 

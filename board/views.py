@@ -1,11 +1,7 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
 from django.shortcuts import render
 from board.models import Board
 from django.shortcuts import redirect
 from datetime import datetime
-import requests
-import js2py
 
 msg = '제목, 작성자, 내용을 입력해주세요.'
 
@@ -33,7 +29,7 @@ def board_insert(request):
     bdate = datetime.now()
 
     if btitle != "" and bnote != "" and bwriter != "":
-        rows = Board.objects.create(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
+        Board.objects.create(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
         return redirect('/board')
 
     elif btitle == "" or bnote == "" or bwriter == "":
@@ -51,7 +47,7 @@ def board_view(request):
 
 def board_delete(request):
     bno = request.GET['b_no']
-    rows = Board.objects.get(b_no=bno).delete()
+    Board.objects.get(b_no=bno).delete()
 
     return redirect('/board')
 
@@ -71,7 +67,7 @@ def board_update(request):
     bdate = datetime.now()
 
     if btitle != "" and bnote != "" and bwriter != "":
-        rsDetail = Board.objects.filter(b_no=bno).update(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
+        Board.objects.filter(b_no=bno).update(b_title=btitle, b_note=bnote, b_writer=bwriter, b_date=bdate)
         return redirect('/board')
 
     elif btitle == "" or bnote == "" or bwriter == "":
