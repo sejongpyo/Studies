@@ -4,11 +4,15 @@
 - end : 2021.04.03. Sat
 
 # deep learning
-2. cs231n
+1. cs231n
 - start : 2021.03.09. Tue
 - end : 2021.04.20. Tue
 
 # computer vision
-3. Programming computer vision with Python (Jan Erik Solem)
+1. Programming computer vision with Python (Jan Erik Solem)
 - start : 2021.03.22. Mon
 - end : 
+
+2. Captcha recognition using PyTorch(Conv-RNN = CTC Loss)
+- date : 2021.06.12. Sat
+- ref : https://www.youtube.com/watch?v=IcLEJB2pY2Y&t=4143s
