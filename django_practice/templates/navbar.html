@@ -1,0 +1,32 @@
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+        <div class="logo mr-auto">
+            <h1 class="text-light"><a href="index.html"><span>장고(Django) & MariaDB 게시판</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="board">Board</a></li>
+                <li class="drop-down"><a href="/">Accounts</a>
+                    <ul>
+                        <li><a href="signin">Signin</a></li>
+                        <li><a href="login_form">Login</a></li>
+                        <li><a href="logout">Logout</a></li>
+                        <li><a href="#">Search</a></li>
+                    </ul>
+                </li>
+                {% if not log_complete %}
+                <li class="get-started"><a href="#about">Get Started</a></li>
+                {% endif %}
+                {% if log_complete %}
+                <li class="get-started"><a href="#about">"{{log_complete}}"</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
